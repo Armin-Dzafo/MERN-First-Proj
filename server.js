@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import 'express-async-errors';
+import morgan from 'morgan';
 
 // connection to database
 import connectDB from './db/connect.js';
@@ -16,6 +17,11 @@ import jobsRouter from './routes/jobsRoutes.js';
 // middleware
 import notFoundMiddleware from './middleware/not-found.js';
 import errorHandlerMiddleware from './middleware/error-handler.js';
+
+// setup morgan pkg
+if (process.env.NODE_ENV !== 'production') {
+  app.use(morgan('dev'));
+}
 
 // makes json data available in the controllers
 app.use(express.json());
